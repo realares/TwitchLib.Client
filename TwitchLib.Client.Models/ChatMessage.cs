@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 
 using TwitchLib.Client.Enums;
-using TwitchLib.Client.Models.Extensions.NetCore;
 using TwitchLib.Client.Models.Internal;
 
 namespace TwitchLib.Client.Models

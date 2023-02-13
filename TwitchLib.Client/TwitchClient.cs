@@ -158,7 +158,7 @@ namespace TwitchLib.Client
 
         #endregion
 
-        #region Events
+        #region Events        
         /// <summary>
         /// Fires when an Announcement is received
         /// </summary>
@@ -780,6 +780,9 @@ namespace TwitchLib.Client
         {
             if (!IsInitialized) HandleNotInitialized();
             Log($"Reconnecting to Twitch");
+            foreach (var channel in _joinedChannelManager.GetJoinedChannels())
+                _joinChannelQueue.Enqueue(channel);
+            _joinedChannelManager.Clear();
             _client.Reconnect();
         }
         #endregion
@@ -956,6 +959,7 @@ namespace TwitchLib.Client
         private void _client_OnDisconnected(object sender, OnDisconnectedEventArgs e)
         {
             OnDisconnected?.Invoke(sender, e);
+            _joinedChannelManager.Clear();
         }
 
         /// <summary>
@@ -965,10 +969,6 @@ namespace TwitchLib.Client
         /// <param name="e">The <see cref="OnReconnectedEventArgs" /> instance containing the event data.</param>
         private void _client_OnReconnected(object sender, OnReconnectedEventArgs e)
         {
-            foreach (var channel in _joinedChannelManager.GetJoinedChannels())
-                if(!string.Equals(channel.Channel, TwitchUsername, StringComparison.CurrentCultureIgnoreCase))
-                    _joinChannelQueue.Enqueue(channel);
-            _joinedChannelManager.Clear();
             OnReconnected?.Invoke(sender, e);
         }
 
@@ -1103,8 +1103,8 @@ namespace TwitchLib.Client
             if (ircMessage.Message.Contains("Login authentication failed"))
             {
                 OnIncorrectLogin?.Invoke(this, new OnIncorrectLoginArgs { Exception = new ErrorLoggingInException(ircMessage.ToString(), TwitchUsername) });
-                return;
             }
+
             switch (ircMessage.Command)
             {
                 case IrcCommand.PrivMsg:
@@ -1580,10 +1580,9 @@ namespace TwitchLib.Client
         /// <param name="ircMessage">The irc message</param>
         private void HandleCap(IrcMessage ircMessage)
         {
-            // do nothing
+            // do nothing https://dev.twitch.tv/docs/irc/capabilities
             return;
         }
-
         #endregion
 
         #endregion

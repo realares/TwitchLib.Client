@@ -4,6 +4,8 @@ using TwitchLib.Client.Events;
 using TwitchLib.Communication.Events;
 using System.Threading;
 using System.Threading.Tasks;
+using TwitchLib.Client.Models;
+using TwitchLib.Client.RA;
 
 namespace TwitchLib.Client.Test
 {
@@ -22,6 +24,7 @@ namespace TwitchLib.Client.Test
         public void ClientCanReceiveData()
         {
             var client = new TwitchClient(_mockClient);
+
             Assert.Raises<OnSendReceiveDataArgs>(
                     h => client.OnSendReceiveData += h,
                     h => client.OnSendReceiveData -= h,
@@ -56,13 +59,35 @@ namespace TwitchLib.Client.Test
         }
 
         [Fact]
-        public void MessageEmoteCollectionFilled()
+        public void ClientNewChatterRitualTest()
+        {
+            //var client = new TwitchClient( _mockClient);
+            //client.OnConnected += (sender, e) => ReceivedUserNoticeMessage();
+
+            //Assert.Raises<OnRitualNewChatterArgs>(
+            //      h => client.OnRitualNewChatter += h,
+            //      h => client.OnRitualNewChatter -= h,
+            //      () =>
+            //      {
+            //          client.Initialize(new Models.ConnectionCredentials(TWITCH_BOT_USERNAME, "OAuth"));
+            //          client.Connect();
+            //          ReceivedTwitchConnected();
+            //      });
+        }
+
+        [Fact]
+        public async void MessageEmoteCollectionFilled()
         {
             var finish = DateTime.Now.AddSeconds(10);
             var client = new TwitchClient( _mockClient);
             var emoteCount = 0;
-            client.OnConnected += (sender, e) => ReceivedTestMessage();
+
+            MessageEmote.ReplacementDelegate = MessageEmoteExtension.SourceMatchingReplacementImgText; 
+
+            client.WillReplaceEmotes = true;
+            client.OnConnected += (sender, e) => ReceivedBetterTTVMessage();
             client.OnMessageReceived += (sender, e) => emoteCount = e.ChatMessage.EmoteSet.Emotes.Count;
+            await RA.BetterTwitchTv.BetterTwitchTvHandler.AddOrRefreshEmotesAsync(client.ChannelEmotes, 524543847);
 
             client.Initialize(new Models.ConnectionCredentials(TWITCH_BOT_USERNAME, "OAuth"));
             client.Connect();
@@ -195,6 +220,11 @@ namespace TwitchLib.Client.Test
         private void ReceivedTestMessage()
         {
             _mockClient.ReceiveMessage($"@badges=subscriber/0,premium/1;color=#005C0B;display-name=KIJUI;emotes=30259:0-6;id=fefffeeb-1e87-4adf-9912-ca371a18cbfd;mod=0;room-id=22510310;subscriber=1;tmi-sent-ts=1530128909202;turbo=0;user-id=25517628;user-type= :kijui!kijui@kijui.tmi.twitch.tv PRIVMSG #testchannel :TEST MESSAGE");
+        }
+
+        private void ReceivedBetterTTVMessage()
+        {
+            _mockClient.ReceiveMessage($"@badges=subscriber/0,premium/1;color=#005C0B;display-name=KIJUI;emotes=30259:0-6;id=fefffeeb-1e87-4adf-9912-ca371a18cbfd;mod=0;room-id=22510310;subscriber=1;tmi-sent-ts=1530128909202;turbo=0;user-id=25517628;user-type= :kijui!kijui@kijui.tmi.twitch.tv PRIVMSG #testchannel :TEST MESSAGE monkaS");
         }
 
         private void ReceivedTwitchConnected()
