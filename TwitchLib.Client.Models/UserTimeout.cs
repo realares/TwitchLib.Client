@@ -5,48 +5,62 @@ namespace TwitchLib.Client.Models
     public class UserTimeout
     {
         /// <summary>Channel that had timeout event.</summary>
-        public string Channel;
+        public string Channel { get; }
 
-        /// <summary>Duration of timeout IN SECONDS.</summary>
-        public int TimeoutDuration;
+        /// <summary>Duration of timeout</summary>
+        public TimeSpan TimeoutDuration { get; }
 
-        /// <summary>Reason for timeout, if it was provided.</summary>
-        public string TimeoutReason;
+        /// <summary>Viewer that was timed out.</summary>
+        public string Username { get; }
 
-        /// <summary>Viewer that was timedout.</summary>
-        public string Username;
+        /// <summary>Id of Viewer that was timed out.</summary>
+        public string TargetUserId { get; } = default!;
 
+        /// <summary>
+        /// Contains undocumented tags.
+        /// </summary>
+        public Dictionary<string, string>? UndocumentedTags { get; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserTimeout"/> class.
+        /// </summary>
         public UserTimeout(IrcMessage ircMessage)
         {
             Channel = ircMessage.Channel;
             Username = ircMessage.Message;
 
-            foreach (var tag in ircMessage.Tags.Keys)
+            foreach (var tag in ircMessage.Tags)
             {
-                var tagValue = ircMessage.Tags[tag];
+                var tagValue = tag.Value;
 
-                switch (tag)
+                switch (tag.Key)
                 {
                     case Tags.BanDuration:
-                        TimeoutDuration = int.Parse(tagValue);
+                        TimeoutDuration = TimeSpan.FromSeconds(int.Parse(tagValue));
                         break;
-                    case Tags.BanReason:
-                        TimeoutReason = tagValue;
+                    case Tags.TargetUserId:
+                        TargetUserId = tagValue;
+                        break;
+                    default:
+                        (UndocumentedTags = new()).Add(tag.Key, tag.Value);
                         break;
                 }
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserTimeout"/> class.
+        /// </summary>
         public UserTimeout(
             string channel,
             string username,
-            int timeoutDuration,
-            string timeoutReason)
+            string targetuserId,
+            TimeSpan timeoutDuration)
         {
             Channel = channel;
             Username = username;
+            TargetUserId = targetuserId;
             TimeoutDuration = timeoutDuration;
-            TimeoutReason = timeoutReason;
         }
     }
 }

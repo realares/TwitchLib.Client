@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFrameworks>net7.0;net6.0</TargetFrameworks>
+	<TargetFrameworks>net7.0</TargetFrameworks>
     <PackageId>TwitchLib.Client.Enums</PackageId>
     <VersionPrefix>4.0.0</VersionPrefix>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <Description>Project containing all of the enums used in TwitchLib.Client.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>swiftyspiffy, Prom3theu5, Syzuna, LuckyNoS7evin</Authors>
+    <Authors>realares, swiftyspiffy, Prom3theu5, Syzuna, LuckyNoS7evin</Authors>
     <Company></Company>
     <PackageProjectUrl>https://github.com/TwitchLib/TwitchLib.Client</PackageProjectUrl>
-    <Copyright>Copyright 2022</Copyright>
+    <Copyright>Copyright 2023</Copyright>
     <PackageReleaseNotes>Incremental changes. See commit history.</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/TwitchLib/TwitchLib.Client</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
@@ -19,5 +19,6 @@
     <AssemblyVersion>4.0.0</AssemblyVersion>
     <FileVersion>4.0.0</FileVersion>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
+	<LangVersion>latest</LangVersion>
   </PropertyGroup>
 </Project>

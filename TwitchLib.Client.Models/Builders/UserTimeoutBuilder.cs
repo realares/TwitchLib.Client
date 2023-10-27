@@ -1,11 +1,14 @@
-﻿namespace TwitchLib.Client.Models.Builders
+﻿#nullable disable
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+namespace TwitchLib.Client.Models.Builders
 {
     public sealed class UserTimeoutBuilder : IBuilder<UserTimeout>, IFromIrcMessageBuilder<UserTimeout>
     {
         private string _channel;
-        private int _timeoutDuration;
-        private string _timeoutReason;
+        private TimeSpan _timeoutDuration;
         private string _username;
+        private string _targetUserId;
 
         private UserTimeoutBuilder()
         {
@@ -17,21 +20,21 @@
             return this;
         }
 
-        public UserTimeoutBuilder WithTimeoutDuration(int timeoutDuration)
+        public UserTimeoutBuilder WithTimeoutDuration(TimeSpan timeoutDuration)
         {
             _timeoutDuration = timeoutDuration;
-            return this;
-        }
-
-        public UserTimeoutBuilder WithTimeoutReason(string timeoutReason)
-        {
-            _timeoutReason = timeoutReason;
             return this;
         }
 
         public UserTimeoutBuilder WithUsername(string username)
         {
             _username = username;
+            return this;
+        }
+
+        public UserTimeoutBuilder WithTargetUserId(string targetUserId)
+        {
+            _targetUserId = targetUserId;
             return this;
         }
 
@@ -47,7 +50,7 @@
 
         public UserTimeout Build()
         {
-            return new UserTimeout(_channel, _username, _timeoutDuration, _timeoutReason);
+            return new UserTimeout(_channel, _username, _targetUserId, _timeoutDuration);
         }
     }
 }

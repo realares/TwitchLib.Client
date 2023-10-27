@@ -1,14 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFrameworks>net7.0;net6.0</TargetFrameworks>
+    <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TwitchLib.Client.Enums\TwitchLib.Client.Enums.csproj" />
     <ProjectReference Include="..\TwitchLib.Client.Models\TwitchLib.Client.Models.csproj" />
+    <ProjectReference Include="..\TwitchLib.Client\TwitchLib.Client.csproj" />
   </ItemGroup>
 
 </Project>

@@ -12,12 +12,12 @@ namespace TwitchLib.Client.Events
     public class OnVIPsReceivedArgs : EventArgs
     {
         /// <summary>
-        /// Property representing the channel the VIPs list came from.
+        /// Property representing the channel the VIPs array came from.
         /// </summary>
         public string Channel;
         /// <summary>
-        /// Property representing the list of VIPs.
+        /// Property representing an array of VIPs.
         /// </summary>
-        public List<string> VIPs;
+        public string[] VIPs;
     }
 }

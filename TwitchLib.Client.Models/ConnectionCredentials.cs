@@ -1,16 +1,17 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace TwitchLib.Client.Models
 {
     /// <summary>Class used to store credentials used to connect to Twitch chat/whisper.</summary>
-    public class ConnectionCredentials
+    public partial class ConnectionCredentials
     {
-        public const string DefaultWebSocketUri = "wss://irc-ws.chat.twitch.tv:443";
-
-        /// <summary>Property representing URI used to connect to Twitch websocket service.</summary>
-        public string TwitchWebsocketURI { get; }
-
+#if NET7_0_OR_GREATER
+        [GeneratedRegex("^([a-zA-Z0-9][a-zA-Z0-9_]{4,25})$")]
+        private static partial Regex GetUsernameCheckRegex();
+#else
+        private static Regex GetUsernameCheckRegex() => UsernameCheckRegex;
+        private static readonly Regex UsernameCheckRegex = new("^([a-zA-Z0-9][a-zA-Z0-9_]{4,25})$");
+#endif
         /// <summary>Property representing bot's oauth.</summary>
         public string TwitchOAuth { get; }
 
@@ -24,11 +25,10 @@ namespace TwitchLib.Client.Models
         public ConnectionCredentials(
             string twitchUsername,
             string twitchOAuth,
-            string twitchWebsocketURI = DefaultWebSocketUri,
             bool disableUsernameCheck = false,
-            Capabilities capabilities = null)
+            Capabilities? capabilities = null)
         {
-            if (!disableUsernameCheck && !new Regex("^([a-zA-Z0-9][a-zA-Z0-9_]{3,25})$").Match(twitchUsername).Success)
+            if (!disableUsernameCheck && !GetUsernameCheckRegex().Match(twitchUsername).Success)
                 throw new Exception($"Twitch username does not appear to be valid. {twitchUsername}");
 
             TwitchUsername = twitchUsername.ToLower();
@@ -40,11 +40,7 @@ namespace TwitchLib.Client.Models
                 TwitchOAuth = $"oauth:{twitchOAuth.Replace("oauth", "")}";
             }
 
-            TwitchWebsocketURI = twitchWebsocketURI;
-
-            if (capabilities == null)
-                capabilities = new Capabilities();
-            Capabilities = capabilities;
+            Capabilities = capabilities ?? new Capabilities();
         }
     }
 
@@ -60,6 +56,9 @@ namespace TwitchLib.Client.Models
         /// <summary>Enables several Twitch-specific commands.</summary>
         public bool Commands { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Capabilities"/> class.
+        /// </summary>
         public Capabilities(bool membership = true, bool tags = true, bool commands = true)
         {
             Membership = membership;

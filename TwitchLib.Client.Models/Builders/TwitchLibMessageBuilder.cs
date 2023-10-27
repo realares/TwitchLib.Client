@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿#nullable disable
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 using TwitchLib.Client.Enums;
 
@@ -17,15 +17,9 @@ namespace TwitchLib.Client.Models.Builders
             return this;
         }
 
-        public TwitchLibMessageBuilder WithColorHex(string colorHex)
+        public TwitchLibMessageBuilder WithColorHex(string color)
         {
-            ColorHex = colorHex;
-            return this;
-        }
-
-        public TwitchLibMessageBuilder WithColorHex(Color color)
-        {
-            Color = color;
+            HexColor = color;
             return this;
         }
 

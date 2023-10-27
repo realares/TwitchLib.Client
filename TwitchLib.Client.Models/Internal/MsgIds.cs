@@ -1,4 +1,6 @@
-﻿namespace TwitchLib.Client.Models.Internal
+﻿#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+namespace TwitchLib.Client.Models.Internal
 {
     public static class MsgIds
     {
@@ -10,20 +12,12 @@
         public const string AlreadySubsOff = "already_subs_off";
         public const string AlreadySubsOn = "already_subs_on";
         public const string Announcement = "announcement";
-        public const string BadHostHosting = "bad_host_hosting";
-        public const string BadHostError = "bad_host_error";
-        public const string BadUnhostError = "bad_unhost_error";
-        public const string BadHostRateExceeded = "bad_host_rate_exceeded";
         public const string BadUnbanNoBan = "bad_unban_no_ban";
         public const string BanSuccess = "ban_success";
         public const string ColorChanged = "color_changed";
         public const string EmoteOnlyOff = "emote_only_off";
         public const string EmoteOnlyOn = "emote_only_on";
         public const string HighlightedMessage = "highlighted-message";
-        public const string HostOff = "host_off";
-        public const string HostOn = "host_on";
-        public const string HostsRemaining = "hosts_remaining";
-        public const string HostTargetWentOffline = "host_target_went_offline";
         public const string ModeratorsReceived = "room_mods";
         public const string NoMods = "no_mods";
         public const string NoVIPs = "no_vips";

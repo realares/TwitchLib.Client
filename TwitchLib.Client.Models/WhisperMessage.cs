@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-
 using TwitchLib.Client.Enums;
 using TwitchLib.Client.Models.Internal;
 
@@ -11,18 +7,20 @@ namespace TwitchLib.Client.Models
     public class WhisperMessage : TwitchLibMessage
     {
         /// <summary>Property representing message identifier.</summary>
-        public string MessageId { get; }
+        public string MessageId { get; } = default!;
 
         /// <summary>Property representing identifier of the message thread.</summary>
-        public string ThreadId { get; }
+        public string ThreadId { get; } = default!;
 
         /// <summary>Property representing identifier of the message thread.</summary>
         public string Message { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WhisperMessage"/> class.
+        /// </summary>
         public WhisperMessage(
             List<KeyValuePair<string, string>> badges,
-            string colorHex,
-            Color color,
+            string hexColor,
             string username,
             string displayName,
             EmoteSet emoteSet,
@@ -35,8 +33,7 @@ namespace TwitchLib.Client.Models
             UserType userType)
         {
             Badges = badges;
-            ColorHex = colorHex;
-            Color = color;
+            HexColor = hexColor;
             Username = username;
             DisplayName = displayName;
             EmoteSet = emoteSet;
@@ -61,26 +58,16 @@ namespace TwitchLib.Client.Models
             RawIrcMessage = ircMessage.ToString();
 
             Message = ircMessage.Message;
-            foreach (var tag in ircMessage.Tags.Keys)
+            foreach (var tag in ircMessage.Tags)
             {
-                var tagValue = ircMessage.Tags[tag];
-                switch (tag)
+                var tagValue = tag.Value;
+                switch (tag.Key)
                 {
                     case Tags.Badges:
-                        Badges = new List<KeyValuePair<string, string>>();
-                        if (tagValue.Contains('/'))
-                        {
-                            if (!tagValue.Contains(","))
-                                Badges.Add(new KeyValuePair<string, string>(tagValue.Split('/')[0], tagValue.Split('/')[1]));
-                            else
-                                foreach (var badge in tagValue.Split(','))
-                                    Badges.Add(new KeyValuePair<string, string>(badge.Split('/')[0], badge.Split('/')[1]));
-                        }
+                        Badges = TagHelper.ToBadges(tagValue);
                         break;
                     case Tags.Color:
-                        ColorHex = tagValue;
-                        if (!string.IsNullOrEmpty(ColorHex))
-                            Color = ColorTranslator.FromHtml(ColorHex);
+                        HexColor = tagValue;
                         break;
                     case Tags.DisplayName:
                         DisplayName = tagValue;
@@ -95,33 +82,21 @@ namespace TwitchLib.Client.Models
                         ThreadId = tagValue;
                         break;
                     case Tags.Turbo:
-                        IsTurbo = Common.Helpers.ConvertToBool(tagValue);
+                        IsTurbo = TagHelper.ToBool(tagValue);
                         break;
                     case Tags.UserId:
                         UserId = tagValue;
                         break;
                     case Tags.UserType:
-                        switch (tagValue)
-                        {
-                            case "global_mod":
-                                UserType = UserType.GlobalModerator;
-                                break;
-                            case "admin":
-                                UserType = UserType.Admin;
-                                break;
-                            case "staff":
-                                UserType = UserType.Staff;
-                                break;
-                            default:
-                                UserType = UserType.Viewer;
-                                break;
-                        }
+                        UserType = TagHelper.ToUserType(tag.Value);
+                        break;
+                    default:
+                        (UndocumentedTags = new()).Add(tag.Key, tag.Value);
                         break;
                 }
             }
 
-            if (EmoteSet == null)
-                EmoteSet = new EmoteSet(default(string), Message);
+            EmoteSet ??= new EmoteSet(default(string), Message);
         }
     }
 }

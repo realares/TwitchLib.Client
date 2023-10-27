@@ -1,10 +1,12 @@
-﻿namespace TwitchLib.Client.Models.Builders
+﻿#nullable disable
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+namespace TwitchLib.Client.Models.Builders
 {
     public sealed class UserBanBuilder : IBuilder<UserBan>, IFromIrcMessageBuilder<UserBan>
     {
         private string _channelName;
         private string _userName;
-        private string _banReason;
         private string _roomId;
         private string _targetUserId;
 
@@ -29,12 +31,6 @@
             return this;
         }
 
-        public UserBanBuilder WithBanReason(string banReason)
-        {
-            _banReason = banReason;
-            return this;
-        }
-
         public UserBanBuilder WithRoomId(string roomId)
         {
             _roomId = roomId;
@@ -54,7 +50,7 @@
 
         public UserBan Build()
         {
-            return new UserBan(_channelName, _userName, _banReason, _roomId, _targetUserId);
+            return new UserBan(_channelName, _userName, _roomId, _targetUserId);
         }
     }
 }

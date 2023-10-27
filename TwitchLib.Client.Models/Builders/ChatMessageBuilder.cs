@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#nullable disable
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 using TwitchLib.Client.Enums;
 
@@ -161,8 +162,7 @@ namespace TwitchLib.Client.Models.Builders
                 _twitchLibMessage.UserId,
                 _twitchLibMessage.Username,
                 _twitchLibMessage.DisplayName,
-                _twitchLibMessage.ColorHex,
-                _twitchLibMessage.Color,
+                _twitchLibMessage.HexColor,
                 _twitchLibMessage.EmoteSet,
                 _message,
                 _twitchLibMessage.UserType,
