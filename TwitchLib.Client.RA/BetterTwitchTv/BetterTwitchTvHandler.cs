@@ -9,7 +9,7 @@ namespace TwitchLib.Client.RA.BetterTwitchTv
     {
         private const string BaseUrl = "https://api.betterttv.net/3/cached/";
 
-        public static async Task AddOrRefreshEmotesAsync(MessageEmoteCollection emoteCollection, int twitchUserId = 0, bool remove = false)
+        public static async Task AddOrRefreshEmotesAsync(MessageEmoteCollection emoteCollection, string twitchUserId, bool remove = false)
         {
             using var httpclient = new HttpClient()
             {
@@ -25,7 +25,7 @@ namespace TwitchLib.Client.RA.BetterTwitchTv
                 AddOrReplaceEmote(globalemotes);
             }
 
-            if (twitchUserId > 0)
+            if (!string.IsNullOrWhiteSpace(twitchUserId))
             {
                 response = await httpclient.GetAsync($"users/twitch/{twitchUserId}");
                 if (response.IsSuccessStatusCode)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TwitchLib.Client.Interfaces;
 using TwitchLib.Client.Models;
 
 namespace TwitchLib.Client.RA
@@ -14,5 +15,6 @@ namespace TwitchLib.Client.RA
         {
             return client.SendReplyAsync(client.GetJoinedChannel(replyToMsg.Channel), replyToMsg.Id, message, dryRun);
         }
+
     }
 }

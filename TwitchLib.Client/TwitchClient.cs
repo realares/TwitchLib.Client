@@ -29,7 +29,7 @@ namespace TwitchLib.Client
     /// Implements the <see cref="TwitchLib.Client.Interfaces.ITwitchClient" />
     /// </summary>
     /// <seealso cref="TwitchLib.Client.Interfaces.ITwitchClient" />
-    public class TwitchClient : ITwitchClient
+    public partial class TwitchClient : ITwitchClient
     {
         #region Private Variables
         /// <summary>

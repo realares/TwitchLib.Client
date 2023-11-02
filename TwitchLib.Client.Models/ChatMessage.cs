@@ -5,7 +5,7 @@ using TwitchLib.Client.Models.Internal;
 namespace TwitchLib.Client.Models
 {
     /// <summary>Class represents ChatMessage in a Twitch channel.</summary>
-    public class ChatMessage : TwitchLibMessage
+    public partial class ChatMessage : TwitchLibMessage
     {
         readonly ChatReply? _chatReply;
         readonly HypeChat? _hypeChat;
@@ -260,7 +260,7 @@ namespace TwitchLib.Client.Models
                             if (low >= 0 && low < high && high < Message.Length)
                             {
                                 //Valid emote, let's parse
-                                var id = emote.Slice(0, firstColon).ToString();
+                                var id = emote[..firstColon].ToString();
                                 //Pull the emote text from the message
                                 var text = Message.Substring(low, high - low + 1);
                                 _emoteCollection.Add(new MessageEmote(id, text));
@@ -268,10 +268,12 @@ namespace TwitchLib.Client.Models
                         }
                     }
                 }
-                if (replaceEmotes)
-                {
-                    EmoteReplacedMessage = _emoteCollection?.ReplaceEmotes(Message, prefix: prefix, suffix: suffix);
-                }
+
+            }
+            // Parse 3rd Party Emotes
+            if (_emoteCollection != null && replaceEmotes)
+            {
+                EmoteReplacedMessage = _emoteCollection?.ReplaceEmotes(Message, prefix: prefix, suffix: suffix);
             }
 
             EmoteSet ??= new EmoteSet(default(string), Message);

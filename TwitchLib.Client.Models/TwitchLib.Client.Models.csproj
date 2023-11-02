@@ -22,6 +22,7 @@
     <FileVersion>4.0.0</FileVersion>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
 	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>enable</Nullable>
 	<LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
