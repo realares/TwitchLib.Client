@@ -1,6 +1,7 @@
 ﻿#nullable disable
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
+using static TwitchLib.Client.Models.MessageEmote;
 
 // TODO: Missing builder
 namespace TwitchLib.Client.Models
@@ -10,13 +11,13 @@ namespace TwitchLib.Client.Models
     ///     Also contains helpers to aid in performing actual replacements.
     ///     Expected to be called from the context of <see cref="ChatMessage"/> and <see cref="WhisperMessage"/>.
     /// </remarks>
-    public class MessageEmote
+    public partial class MessageEmote
     {
         /// <summary>
         ///     Delegate allowing Emotes to handle their replacement text on a case-by-case basis.
         /// </summary>
         /// <returns>The string for the calling emote to be replaced with.</returns>
-        public delegate string ReplaceEmoteDelegate(MessageEmote caller);
+        public delegate string ReplaceEmoteDelegate(MessageEmote caller, EmoteSize? sizeOverride = null);
 
         /// <summary>
         ///     Collection of Composite Format Strings which will substitute an
@@ -26,12 +27,12 @@ namespace TwitchLib.Client.Models
         ///     These are sorted such that the <see cref="EmoteSize"/> enum can be used as an index,
         ///     eg TwitchEmoteUrls[<see cref="EmoteSize.Small"/>]
         /// </remarks>
-        public static readonly ReadOnlyCollection<string> TwitchEmoteUrls = new ReadOnlyCollection<string>(
+        public static readonly ReadOnlyCollection<string> TwitchEmoteUrls = new(
             new[]
             {
-                "https://static-cdn.jtvnw.net/emoticons/v1/{0}/1.0",
-                "https://static-cdn.jtvnw.net/emoticons/v1/{0}/2.0",
-                "https://static-cdn.jtvnw.net/emoticons/v1/{0}/3.0"
+                "https://static-cdn.jtvnw.net/emoticons/v2/{0}/default/dark/1.0",
+                "https://static-cdn.jtvnw.net/emoticons/v2/{0}/default/dark/2.0",
+                "https://static-cdn.jtvnw.net/emoticons/v2/{0}/default/dark/3.0"
             }
         );
 
@@ -99,7 +100,7 @@ namespace TwitchLib.Client.Models
         /// </summary>
         /// <param name="caller"></param>
         /// <returns></returns>
-        public static string SourceMatchingReplacementText(MessageEmote caller)
+        public static string SourceMatchingReplacementText(MessageEmote caller, EmoteSize? sizeOverride = null)
         {
             var sizeIndex = (int)caller.Size;
             return caller.Source switch
@@ -174,7 +175,12 @@ namespace TwitchLib.Client.Models
         /// <summary>
         ///    The string to substitute emote text for.
         /// </summary>
-        public string ReplacementString => ReplacementDelegate(this);
+        //public string ReplacementString => ReplacementDelegate(this);
+
+        public string ReplacementString(EmoteSize? sizeOverride = null)
+        {
+            return ReplacementDelegate(this, sizeOverride);
+        }
 
         /// <summary>
         ///     The desired <see cref="ReplaceEmoteDelegate"/> to use for replacing text in a given emote.
@@ -408,21 +414,63 @@ namespace TwitchLib.Client.Models
                 CurrentEmoteFilter = del;
             }
 
+            var OneWordMessage = !originalMessage.Contains(' ');
+            EmoteSize? emoteSizeOverride = OneWordMessage ? EmoteSize.Medium : null;
+
             var newMessage = CurrentRegex.Replace(originalMessage, match =>
             {
                 // the match includes possible white space on either side, so we need to preserve that
                 var emoteCode = match.Value.Trim();
                 if (match.Value[0] == ' ')
                     prefix += " ";
+
                 if (match.Value[match.Value.Length - 1] == ' ')
                     suffix = " " + suffix;
+
                 if (!_emotes.ContainsKey(emoteCode))
                 {
                     return match.Value;
                 }
                 var emote = _emotes[emoteCode];
 
-                return CurrentEmoteFilter(emote) ? prefix + emote.ReplacementString + suffix : match.Value;
+                return CurrentEmoteFilter(emote) ? prefix + emote.ReplacementString(emoteSizeOverride) + suffix : match.Value;
+            });
+            CurrentEmoteFilter = _preferredFilter;
+
+            // the hacky replacement logic above will leave 2 spaces between emote and non-emote
+            // twitch doesn't allow this anyways, so this fix should be fine
+            return newMessage.Replace("  ", " ");
+        }
+
+        public string RemoveAllEmotes(string originalMessage, EmoteFilterDelegate del = null, string prefix = "", string suffix = "")
+        {
+            if (CurrentRegex == null)
+            {
+                return originalMessage;
+            }
+
+            if (del != null && del != CurrentEmoteFilter)
+            {
+                CurrentEmoteFilter = del;
+            }
+
+            var newMessage = CurrentRegex.Replace(originalMessage, match =>
+            {
+                // the match includes possible white space on either side, so we need to preserve that
+                var emoteCode = match.Value.Trim();
+                if (match.Value[0] == ' ')
+                    prefix += " ";
+
+                if (match.Value[match.Value.Length - 1] == ' ')
+                    suffix = " " + suffix;
+
+                if (!_emotes.ContainsKey(emoteCode))
+                {
+                    return match.Value;
+                }
+                var emote = _emotes[emoteCode];
+
+                return CurrentEmoteFilter(emote) ? "" : match.Value;
             });
             CurrentEmoteFilter = _preferredFilter;
 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TwitchLib.Client.Interfaces;
 using TwitchLib.Client.Models;
+using static TwitchLib.Client.Models.MessageEmoteCollection;
 
 namespace TwitchLib.Client.RA
 {

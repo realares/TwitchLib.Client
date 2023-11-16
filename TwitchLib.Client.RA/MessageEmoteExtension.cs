@@ -13,19 +13,17 @@ namespace TwitchLib.Client.RA
         /// </summary>
         /// <param name="caller"></param>
         /// <returns></returns>
-        public static string SourceMatchingReplacementImgText(MessageEmote caller)
+        public static string SourceMatchingReplacementImgText(MessageEmote caller, EmoteSize? sizeOverride = null)
         {
-            var sizeIndex = (int)caller.Size;
-            switch (caller.Source)
+            var sizeIndex = (sizeOverride == null ? (int)caller.Size : (int)sizeOverride.Value);
+            return caller.Source switch
             {
-                case EmoteSource.BetterTwitchTv:
-                    return $"<img src='{string.Format(BetterTwitchTvEmoteUrls[sizeIndex], caller.Id)}'>";
-                case EmoteSource.FrankerFaceZ:
-                    return $"<img src='{string.Format(FrankerFaceZEmoteUrls[sizeIndex], caller.Id)}'>";
-                case EmoteSource.Twitch:
-                    return $"<img src='{string.Format(TwitchEmoteUrls[sizeIndex], caller.Id)}'>";
-            }
-            return caller.Text;
+                EmoteSource.BetterTwitchTv => $"<img src='{string.Format(BetterTwitchTvEmoteUrls[sizeIndex], caller.Id)}'>",
+                EmoteSource.FrankerFaceZ => $"<img src='{string.Format(FrankerFaceZEmoteUrls[sizeIndex], caller.Id)}'>",
+                EmoteSource.Twitch => $"<img src='{string.Format(TwitchEmoteUrls[sizeIndex], caller.Id)}'>",
+                EmoteSource.SevenTv => $"<img src='{string.Format(SevenTvEmoteUrls[sizeIndex], caller.Id)}'>",
+                _ => caller.Text,
+            };
         }
     }
 }
