@@ -88,7 +88,8 @@ namespace TwitchLib.Client.Models
             {
                 "//cdn.7tv.app/emote/{0}/1x.avif",
                 "//cdn.7tv.app/emote/{0}/2x.avif",
-                "//cdn.7tv.app/emote/{0}/5x.avif"
+                "//cdn.7tv.app/emote/{0}/3x.avif",
+                "//cdn.7tv.app/emote/{0}/4x.avif"
             }
             );
         #endregion Third-Party Emote URLs

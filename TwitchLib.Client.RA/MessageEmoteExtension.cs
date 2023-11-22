@@ -16,6 +16,7 @@ namespace TwitchLib.Client.RA
         public static string SourceMatchingReplacementImgText(MessageEmote caller, EmoteSize? sizeOverride = null)
         {
             var sizeIndex = (sizeOverride == null ? (int)caller.Size : (int)sizeOverride.Value);
+            sizeIndex++;
             return caller.Source switch
             {
                 EmoteSource.BetterTwitchTv => $"<img src='{string.Format(BetterTwitchTvEmoteUrls[sizeIndex], caller.Id)}'>",
