@@ -7,10 +7,10 @@ namespace TwitchLib.Client.Models;
 public class Announcement : UserNoticeBase
 {
     /// <summary>Property representing the color value of the announcement.</summary>
-    public string MsgParamColor { get; protected set; } = default!;
+    public string MsgParamColor { get;  set; } = default!;
 
     /// <summary>Property representing the message of the announcement.</summary>
-    public string Message { get; protected set; }
+    public string Message { get;  set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Announcement"/> class.

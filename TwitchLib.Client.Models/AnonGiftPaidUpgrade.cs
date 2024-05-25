@@ -8,12 +8,12 @@ public class AnonGiftPaidUpgrade : UserNoticeBase
     /// <summary>
     /// The number of gifts the gifter has given during the promo indicated by <see cref="MsgParamPromoName"/>.
     /// </summary>
-    public int MsgParamPromoGiftTotal { get; protected set; }
+    public int MsgParamPromoGiftTotal { get; set; }
 
     /// <summary>
     /// The subscriptions promo, if any, that is ongoing (for example, Subtember 2018).
     /// </summary>
-    public string MsgParamPromoName { get; protected set; } = default!;
+    public string MsgParamPromoName { get; set; } = default!;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AnonGiftPaidUpgrade"/> class.

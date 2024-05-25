@@ -11,82 +11,82 @@ public abstract class UserNoticeBase : IHexColorProperty
     /// <summary>
     /// Contains metadata related to the chat badges in the <see cref="Badges"/> tag.
     /// </summary>
-    public List<KeyValuePair<string, string>> BadgeInfo { get; protected set; } = default!;
+    public List<KeyValuePair<string, string>> BadgeInfo { get; set; } = default!;
 
     /// <summary>
     /// List of chat badges.
     /// </summary>
-    public List<KeyValuePair<string, string>> Badges { get; protected set; } = default!;
+    public List<KeyValuePair<string, string>> Badges { get; set; } = default!;
 
     /// <inheritdoc/>
-    public string HexColor { get; protected set; } = default!;
+    public string HexColor { get; set; } = default!;
 
     /// <summary>
     /// The user’s display name, escaped as described in the IRCv3 spec.
     /// </summary>
-    public string DisplayName { get; protected set; } = default!;
+    public string DisplayName { get; set; } = default!;
 
     /// <summary>
     ///  List of emotes and their positions in the message.
     /// </summary>
-    public string Emotes { get; protected set; } = default!;
+    public string Emotes { get; set; } = default!;
 
     /// <summary>
     /// An ID that uniquely identifies this message.
     /// </summary>
-    public string Id { get; protected set; } = default!;
+    public string Id { get; set; } = default!;
 
     /// <summary>
     /// The login name of the user whose action generated the message.
     /// </summary>
-    public string Login { get; protected set; } = default!;
+    public string Login { get; set; } = default!;
 
     /// <summary>
     /// A Boolean value that determines whether the user is a moderator.
     /// </summary>
-    public bool IsModerator { get; protected set; }
+    public bool IsModerator { get; set; }
 
     /// <summary>
     /// The type of notice (not the ID).
     /// </summary>
-    public string MsgId { get; protected set; } = default!;
+    public string MsgId { get; set; } = default!;
 
     /// <summary>
     /// An ID that identifies the chat room (channel).
     /// </summary>
-    public string RoomId { get; protected set; } = default!;
+    public string RoomId { get; set; } = default!;
 
     /// <summary>
     /// A Boolean value that determines whether the user is a subscriber.
     /// </summary>
-    public bool IsSubscriber { get; protected set; }
+    public bool IsSubscriber { get; set; }
 
     /// <summary>
     /// The message Twitch shows in the chat room for this notice.
     /// </summary>
-    public string SystemMsg { get; protected set; } = default!;
+    public string SystemMsg { get; set; } = default!;
 
     /// <summary>
     /// The time for when the Twitch IRC server received the message.
     /// </summary>
-    public DateTimeOffset TmiSent { get; protected set; }
+    public DateTimeOffset TmiSent { get; set; }
 
     /// <summary>
     /// A Boolean value that indicates whether the user has site-wide commercial free mode enabled.
     /// </summary>
-    public bool IsTurbo { get; protected set; } //todo HasTurbo?
+    public bool IsTurbo { get; set; } //todo HasTurbo?
 
     /// <summary>
     /// The user’s ID.
     /// </summary>
-    public string UserId { get; protected set; } = default!;
+    public string UserId { get; set; } = default!;
 
     /// <summary>
     /// he type of user sending the whisper message.
     /// </summary>
-    public UserType UserType { get; protected set; }
+    public UserType UserType { get; set; }
 
-    public Dictionary<string, string>? UndocumentedTags { get; protected set; }
+    public Dictionary<string, string>? UndocumentedTags { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UserNoticeBase"/> class.

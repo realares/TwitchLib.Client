@@ -5,19 +5,19 @@ namespace TwitchLib.Client.Models;
 
 public class StandardPayForward : UserNoticeBase
 {
-    public bool MsgParamPriorGifterAnonymous { get; protected set; }
+    public bool MsgParamPriorGifterAnonymous { get; set; }
 
-    public string MsgParamPriorGifterDisplayName { get; protected set; } = default!;
+    public string MsgParamPriorGifterDisplayName { get; set; } = default!;
 
-    public long MsgParamPriorGifterId { get; protected set; }
+    public long MsgParamPriorGifterId { get; set; }
 
-    public string MsgParamPriorGifterUserName { get; protected set; } = default!;
+    public string MsgParamPriorGifterUserName { get; set; } = default!;
 
-    public string? MsgParamRecipientDisplayName { get; protected set; }
+    public string? MsgParamRecipientDisplayName { get; set; }
 
-    public long? MsgParamRecipientId { get; protected set; }
+    public long? MsgParamRecipientId { get; set; }
 
-    public string? MsgParamRecipientUserName { get; protected set; }
+    public string? MsgParamRecipientUserName { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StandardPayForward"/> class.

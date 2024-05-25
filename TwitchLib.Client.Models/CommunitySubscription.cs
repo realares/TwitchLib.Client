@@ -12,18 +12,18 @@ public class CommunitySubscription : UserNoticeBase
 
     public Goal? MsgParamGoal { get => _goal; protected set => _goal = value; }
 
-    public string MsgParamGiftTheme { get; protected set; } = default!;
+    public string MsgParamGiftTheme { get; set; } = default!;
 
-    public int MsgParamMassGiftCount { get; protected set; }
+    public int MsgParamMassGiftCount { get; set; }
 
-    public string MsgParamOriginId { get; protected set; } = default!;
+    public string MsgParamOriginId { get; set; } = default!;
 
-    public int MsgParamSenderCount { get; protected set; }
+    public int MsgParamSenderCount { get; set; }
 
     /// <summary>
     /// The type of subscription plan being used.
     /// </summary>
-    public SubscriptionPlan MsgParamSubPlan { get; protected set; }
+    public SubscriptionPlan MsgParamSubPlan { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CommunitySubscription"/> class.

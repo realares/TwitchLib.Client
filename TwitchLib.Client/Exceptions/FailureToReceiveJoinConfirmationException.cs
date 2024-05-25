@@ -9,12 +9,12 @@
         /// Exception representing failure of client to receive JOIN confirmation.
         /// </summary>
         /// <value>The channel.</value>
-        public string Channel { get; protected set; }
+        public string Channel { get; set; }
         /// <summary>
         /// Extra details regarding this exception (not always set)
         /// </summary>
         /// <value>The details.</value>
-        public string Details { get; protected set; }
+        public string Details { get; set; }
 
         /// <summary>
         /// Exception construtor.

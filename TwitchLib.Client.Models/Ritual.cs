@@ -8,9 +8,9 @@ public class Ritual : UserNoticeBase
     /// <summary>
     /// The name of the ritual being celebrated.
     /// </summary>
-    public string MsgParamRitualName { get; protected set; } = default!;
+    public string MsgParamRitualName { get; set; } = default!;
 
-    public string Message { get; protected set; }
+    public string Message { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Ritual"/> class.

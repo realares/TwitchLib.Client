@@ -4,15 +4,15 @@ namespace TwitchLib.Client.Models;
 
 public class Goal
 {
-    public string ContributionType { get; protected set; } = default!; //SUB_POINTS, SUB
+    public string ContributionType { get; set; } = default!; //SUB_POINTS, SUB
 
-    public int CurrentContributions { get; protected set; }
+    public int CurrentContributions { get; set; }
 
-    public string? Description { get; protected set; }
+    public string? Description { get; set; }
 
-    public int TargetContributions { get; protected set; }
+    public int TargetContributions { get; set; }
 
-    public int UserContributions { get; protected set; }
+    public int UserContributions { get; set; }
 
     internal static bool TrySetTag(ref Goal? goal, KeyValuePair<string, string> tag)
     {

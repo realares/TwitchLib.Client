@@ -9,22 +9,22 @@ public class ContinuedGiftedSubscription : UserNoticeBase
     /// <summary>
     /// The number of gifts the gifter has given during the promo indicated by <see cref="MsgParamPromoName"/>.
     /// </summary>
-    public int MsgParamPromoGiftTotal { get; protected set; }
+    public int MsgParamPromoGiftTotal { get; set; }
 
     /// <summary>
     /// The subscriptions promo, if any, that is ongoing (for example, Subtember 2018).
     /// </summary>
-    public string MsgParamPromoName { get; protected set; } = default!;
+    public string MsgParamPromoName { get; set; } = default!;
 
     /// <summary>
     /// The login name of the user who gifted the subscription.
     /// </summary>
-    public string MsgParamSenderLogin { get; protected set; } = default!;
+    public string MsgParamSenderLogin { get; set; } = default!;
 
     /// <summary>
     /// The display name of the user who gifted the subscription.
     /// </summary>
-    public string MsgParamSenderName { get; protected set; } = default!;
+    public string MsgParamSenderName { get; set; } = default!;
 
 
     /// <summary>

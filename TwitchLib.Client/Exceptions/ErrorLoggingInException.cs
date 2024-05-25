@@ -14,7 +14,7 @@ namespace TwitchLib.Client.Exceptions
         /// Exception representing username associated with bad login.
         /// </summary>
         /// <value>The username.</value>
-        public string Username { get; protected set; }
+        public string Username { get; set; }
 
         /// <summary>
         /// Exception construtor.

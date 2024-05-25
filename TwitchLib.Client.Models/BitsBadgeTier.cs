@@ -8,7 +8,7 @@ public class BitsBadgeTier : UserNoticeBase
     /// <summary>
     /// The tier of the Bits badge the user just earned. For example, 100, 1000, or 10000.
     /// </summary>
-    public int MsgParamThreshold { get; protected set; }
+    public int MsgParamThreshold { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BitsBadgeTier"/> class.

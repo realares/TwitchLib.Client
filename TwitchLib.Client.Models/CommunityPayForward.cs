@@ -5,13 +5,13 @@ namespace TwitchLib.Client.Models;
 
 public class CommunityPayForward : UserNoticeBase
 {
-    public bool MsgParamPriorGifterAnonymous { get; protected set; }
+    public bool MsgParamPriorGifterAnonymous { get; set; }
 
-    public string MsgParamPriorGifterDisplayName { get; protected set; } = default!;
+    public string MsgParamPriorGifterDisplayName { get; set; } = default!;
 
-    public string MsgParamPriorGifterId { get; protected set; } = default!;
+    public string MsgParamPriorGifterId { get; set; } = default!;
 
-    public string MsgParamPriorGifterUserName { get; protected set; } = default!;
+    public string MsgParamPriorGifterUserName { get; set; } = default!;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CommunityPayForward"/> class.

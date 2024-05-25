@@ -149,7 +149,11 @@ namespace TwitchLib.Client.Models
             ///     Large-sized emotes are not supported by all browsers, and
             ///     FrankerFaceZ does not require emotes to be submitted in this size
             ///     </summary>
-            Large = 2
+            Large = 2,
+            
+
+            VeryLarge = 3,
+
         }
 
         /// <summary>

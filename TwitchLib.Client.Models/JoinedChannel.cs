@@ -10,10 +10,10 @@
         public string Channel { get; }
 
         ///// <summary>Object representing current state of channel (r9k, slow, etc).</summary>
-        //public ChannelState ChannelState { get; protected set; }
+        //public ChannelState ChannelState { get; set; }
 
         /// <summary>The most recent message received.</summary>
-        public ChatMessage? PreviousMessage { get; protected set; }
+        public ChatMessage? PreviousMessage { get; set; }
 
         /// <summary>JoinedChannel object constructor.</summary>
         public JoinedChannel(string channel)

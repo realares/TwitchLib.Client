@@ -9,7 +9,7 @@ public class PrimePaidSubscriber : UserNoticeBase
     /// <summary>
     /// The type of subscription plan being used.
     /// </summary>
-    public SubscriptionPlan MsgParamSubPlan { get; protected set; }
+    public SubscriptionPlan MsgParamSubPlan { get; set; }
 
     /// <summary>
     /// Property representing system message.

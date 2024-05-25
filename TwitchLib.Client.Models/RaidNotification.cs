@@ -8,17 +8,17 @@ public class RaidNotification : UserNoticeBase
     /// <summary>
     /// The display name of the broadcaster raiding this channel.
     /// </summary>
-    public string MsgParamDisplayName { get; protected set; } = default!;
+    public string MsgParamDisplayName { get; set; } = default!;
 
     /// <summary>
     /// The login name of the broadcaster raiding this channel.
     /// </summary>
-    public string MsgParamLogin { get; protected set; } = default!;
+    public string MsgParamLogin { get; set; } = default!;
 
     /// <summary>
     /// The number of viewers raiding this channel from the broadcaster’s channel.
     /// </summary>
-    public string MsgParamViewerCount { get; protected set; } = default!;
+    public string MsgParamViewerCount { get; set; } = default!;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RaidNotification"/> class.

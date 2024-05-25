@@ -8,46 +8,46 @@ public class GiftedSubscription : UserNoticeBase
 {
     private Goal? _goal;
 
-    public Goal? MsgParamGoal { get => _goal; protected set => _goal = value; }
+    public Goal? MsgParamGoal { get => _goal; set => _goal = value; }
 
     public bool IsAnonymous { get; }
 
     /// <summary>
     /// The total number of months the user has subscribed. 
     /// </summary>
-    public string MsgParamMonths { get; protected set; } = default!;
+    public string MsgParamMonths { get; set; } = default!;
 
     /// <summary>
     /// The display name of the subscription gift recipient.
     /// </summary>
-    public string MsgParamRecipientDisplayName { get; protected set; } = default!;
+    public string MsgParamRecipientDisplayName { get; set; } = default!;
 
     /// <summary>
     /// The user ID of the subscription gift recipient.
     /// </summary>
-    public string MsgParamRecipientId { get; protected set; } = default!;
+    public string MsgParamRecipientId { get; set; } = default!;
 
     /// <summary>
     /// The user name of the subscription gift recipient.
     /// </summary>
-    public string MsgParamRecipientUserName { get; protected set; } = default!;
+    public string MsgParamRecipientUserName { get; set; } = default!;
 
-    public int MsgParamSenderCount { get; protected set; }
+    public int MsgParamSenderCount { get; set; }
 
     /// <summary>
     /// The type of subscription plan being used.
     /// </summary>
-    public SubscriptionPlan MsgParamSubPlan { get; protected set; }
+    public SubscriptionPlan MsgParamSubPlan { get; set; }
 
     /// <summary>
     /// The display name of the subscription plan. This may be a default name or one created by the channel owner.
     /// </summary>
-    public string MsgParamSubPlanName { get; protected set; } = default!;
+    public string MsgParamSubPlanName { get; set; } = default!;
 
     /// <summary>
     /// The number of months gifted as part of a single, multi-month gift.
     /// </summary>
-    public int MsgParamMultiMonthGiftDuration { get; protected set; }
+    public int MsgParamMultiMonthGiftDuration { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="GiftedSubscription"/> class.
